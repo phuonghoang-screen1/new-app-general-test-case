@@ -1,0 +1,416 @@
+<!doctype html><html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Testcase QA — Phần đã xong</title><style>
+:root{--bg:#f4f6f8;--surface:#fff;--s2:#eceff2;--text:#1b232e;--mut:#5b6572;--bd:#dde2e8;--acc:#2f5d8a;--accs:#e6edf4;--hi:#b83a3a;--his:#fbe8e6;--mid:#a8710a;--mids:#faf0da;--lo:#1c7d54;--los:#e3f4ea}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#12161d;--surface:#1a1f28;--s2:#212733;--text:#e7ebf1;--mut:#98a2b0;--bd:#2a3140;--acc:#7fb0da;--accs:#1e2b39;--hi:#e2726d;--his:#3a1f1e;--mid:#e0a83e;--mids:#3a2f16;--lo:#4dbf8c;--los:#173229}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:15px/1.6 system-ui,'Segoe UI',sans-serif}
+code{font-family:Consolas,ui-monospace,monospace;background:var(--s2);padding:1px 5px;border-radius:4px;font-size:.88em}
+nav{position:fixed;top:0;left:0;bottom:0;width:260px;overflow:auto;padding:20px 14px;background:var(--surface);border-right:1px solid var(--bd)}
+nav a{display:block;color:var(--mut);text-decoration:none;padding:4px 8px;border-radius:6px;font-size:13px}nav a:hover{background:var(--accs);color:var(--acc)}
+nav a.n1{font-weight:700;color:var(--text);margin-top:10px}nav a.n2{padding-left:18px}
+main{margin-left:260px;padding:32px 28px 80px;max-width:1040px}
+h1{font-size:28px;margin:0 0 6px}.dek{color:var(--mut);margin:0 0 18px}
+.bar{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0 24px}
+.bar input{flex:1 1 240px;padding:8px 12px;border:1px solid var(--bd);border-radius:8px;background:var(--surface);color:var(--text);font:inherit}
+.bar button{padding:6px 12px;border:1px solid var(--bd);border-radius:999px;background:var(--surface);color:var(--text);cursor:pointer;font:inherit;font-size:13px}.bar button.on{background:var(--acc);color:#fff;border-color:var(--acc)}
+h2{font-size:22px;margin:40px 0 12px;padding-top:8px;border-top:2px solid var(--bd)}h4.sub{font-size:16px;color:var(--acc);margin:26px 0 10px}
+.note{background:var(--accs);border-left:3px solid var(--acc);padding:10px 14px;border-radius:6px;margin:10px 0;color:var(--mut);font-size:13.5px}
+.tc{background:var(--surface);border:1px solid var(--bd);border-radius:10px;padding:14px 18px;margin:12px 0}
+.tc header{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.tc h3{font-size:15.5px;margin:0;flex:1 1 300px}
+.id{font:600 12px Consolas,monospace;background:var(--accs);color:var(--acc);padding:2px 8px;border-radius:5px}
+.pri{font-size:12px;font-weight:600;padding:2px 10px;border-radius:999px}.pri.hi{background:var(--his);color:var(--hi)}.pri.mid{background:var(--mids);color:var(--mid)}.pri.lo{background:var(--los);color:var(--lo)}
+.tc ul{margin:8px 0 0;padding-left:20px}.tc li{margin:4px 0}.tc ol{margin:4px 0;padding-left:22px}
+.hide{display:none!important}
+@media(max-width:800px){nav{display:none}main{margin-left:0;padding:20px 16px}}
+</style></head><body>
+<nav><a class="n1" href="#s0">Phần A — Frontend (<code>services/frontend</code>)</a><a class="n2" href="#s1">A.1 Auth &amp; Onboarding</a><a class="n2" href="#s2">A.2 Data Rules</a><a class="n2" href="#s3">A.3 Actions</a><a class="n2" href="#s4">A.4 Projects &amp; Canvas</a><a class="n2" href="#s5">A.5 Settings</a><a class="n2" href="#s6">A.6 Admin</a><a class="n2" href="#s7">A.7 AI Chat / Create</a><a class="n1" href="#s8">Phần B — SDK (Tracker)</a><a class="n2" href="#s9">B.1 Pageview &amp; điều hướng</a><a class="n2" href="#s10">B.2 Click tracking</a><a class="n2" href="#s11">B.3 Scroll &amp; Session</a><a class="n2" href="#s12">B.4 Form tracking</a><a class="n2" href="#s13">B.5 Person Detection (10 nguồn)</a><a class="n2" href="#s14">B.6 eCommerce integrations</a><a class="n2" href="#s15">B.7 Chat integrations</a><a class="n2" href="#s16">B.8 Custom events &amp; attribution</a><a class="n2" href="#s17">B.9 Consent</a><a class="n2" href="#s18">B.10 Transport &amp; cookie</a><a class="n1" href="#s19">Phần C — Preview System</a><a class="n2" href="#s20">C.1 Khởi tạo phiên &amp; luồng dữ liệu</a><a class="n2" href="#s21">C.2 DevTools (Chii — Direct Connection Mode)</a><a class="n2" href="#s22">C.3 Vòng đời phiên (10 phút inactivity)</a><a class="n2" href="#s23">C.4 Bảo mật &amp; phân quyền truy cập</a><a class="n1" href="#s24">Phần E — Rule Engines (Traffic Source · Channel · Classification · Custom Variable Rules)</a><a class="n2" href="#s25">E.1 Traffic Source Rules (edge stage <code>05c-traffic-source.ts</code>)</a><a class="n2" href="#s26">E.2 Channel management</a><a class="n2" href="#s27">E.3 Classifications hub — Page/Form (LLM, edge stage 05/05b)</a><a class="n2" href="#s28">E.4 Custom Variable Rules (edge stage <code>06b-custom-properties.ts</code>)</a><a class="n1" href="#s29">Phần F — Playground Environment</a><a class="n1" href="#s30">Phần G — Draft &amp; Publish</a><a class="n2" href="#s31">Ghi chú tổng hợp</a></nav><main><h1>Testcase QA — ListenLayer (chỉ phần đã làm xong)</h1><p class="dek">112 testcase — chỉ các tính năng đã hoàn thành. Nguồn: <code>docs/TEST_CASES_DONE.md</code></p>
+<div class="bar"><input id="q" type="search" placeholder="Tìm testcase (ID, từ khoá)…"><button class="on" data-p="">Tất cả</button><button data-p="Cao">Cao</button><button data-p="Trung bình">Trung bình</button><button data-p="Thấp">Thấp</button></div>
+<div class="note">Bản lọc từ <code>docs/TEST_CASES.md</code>: <strong>chỉ giữ testcase của tính năng đã hoàn thành</strong>. Đã loại: (1) mọi testcase đánh dấu ⚠️ (tính năng dở dang/stub/known limitation), (2) PUB-13 (capability chưa được wire vào UI), (3) toàn bộ Phần D — BigQuery (cần quyền <code>bq</code>/<code>gcloud</code>, ngoài phạm vi tester chỉ dùng browser + dashboard). Tổng <strong>112 testcase</strong>.<br><strong>Cách thao tác — Phần A/B/C/E/F/G:</strong> chỉ dùng <strong>browser + dashboard/sim site</strong>, không API/DB/backend trực tiếp. Với SDK và các rule engine, xác nhận payload qua tab <strong>Network</strong> của DevTools trình duyệt (vẫn là quan sát qua browser, không phải tự gọi API).<br><strong>Ghi chú đánh số:</strong> ID giữ nguyên như file gốc nên có chỗ nhảy số (vd DR-05…DR-11, SET-07/08, CH-03, CLS-04, PUB-12/13 vắng mặt) — là do đã bị loại.<br><strong>Mức độ ưu tiên:</strong> Cao / Trung bình / Thấp.</div>
+<section><h2 id="s0">Phần A — Frontend (<code>services/frontend</code>)</h2>
+<div class="note">Nguồn: <code>docs/FRONTEND_FEATURE_MAP.html</code> (khảo sát 2026-09-07). Giữ 33 testcase của các tính năng "Xong" ✅; đã loại 9 testcase tính năng "Dở dang" ⚠️ và 19 tính năng "Chưa làm".</div>
+<h4 class="sub" id="s1">A.1 Auth &amp; Onboarding</h4>
+<article class="tc" id="AUTH-01" data-p="Cao"><header><span class="id">AUTH-01</span><h3>Đăng nhập email/password (Better Auth)</h3><span class="pri hi">Cao</span></header>
+<ul><li><strong>Tiền điều kiện:</strong> có tài khoản hợp lệ, đã đăng xuất.</li><li><strong>Bước:</strong><ol><li>Vào trang đăng nhập, nhập email + password đúng, bấm Sign in.</li><li>Đăng xuất, nhập sai password, bấm Sign in.</li><li>Bỏ trống email, bấm Sign in.</li></ol></li><li><strong>Kết quả mong đợi:</strong> (1) vào app thành công; (2) báo lỗi sai thông tin đăng nhập, không vào được; (3) form chặn submit, báo lỗi field bắt buộc.</li></ul>
+</article>
+<article class="tc" id="AUTH-02" data-p="Cao"><header><span class="id">AUTH-02</span><h3>Đăng nhập Google OAuth</h3><span class="pri hi">Cao</span></header>
+<ul><li><strong>Bước:</strong> bấm "Sign in with Google", chọn tài khoản Google đã liên kết; lặp lại với tài khoản Google chưa từng liên kết.</li><li><strong>Kết quả mong đợi:</strong> tài khoản đã liên kết vào thẳng app; tài khoản chưa liên kết được dẫn đúng luồng tạo/liên kết account.</li></ul>
+</article>
+<article class="tc" id="AUTH-03" data-p="Cao"><header><span class="id">AUTH-03</span><h3>Bật 2FA qua TOTP (authenticator app)</h3><span class="pri hi">Cao</span></header>
+<ul><li><strong>Tiền điều kiện:</strong> đã đăng nhập, 2FA đang tắt.</li><li><strong>Bước:</strong> vào cài đặt bảo mật → bật 2FA → chọn TOTP → quét QR bằng app authenticator → nhập mã 6 số để xác nhận.</li><li><strong>Kết quả mong đợi:</strong> 2FA bật thành công; đăng xuất và đăng nhập lại phải yêu cầu nhập mã TOTP.</li></ul>
+</article>
+<article class="tc" id="AUTH-04" data-p="Cao"><header><span class="id">AUTH-04</span><h3>Bật 2FA qua SMS</h3><span class="pri hi">Cao</span></header>
+<ul><li><strong>Bước:</strong> chọn phương thức SMS, nhập số điện thoại, nhận OTP, nhập mã xác nhận.</li><li><strong>Kết quả mong đợi:</strong> 2FA SMS active; lần đăng nhập sau yêu cầu OTP gửi qua SMS.</li></ul>
+</article>
+<article class="tc" id="AUTH-05" data-p="Cao"><header><span class="id">AUTH-05</span><h3>Step-up xác thực khi thao tác nhạy cảm</h3><span class="pri hi">Cao</span></header>
+<ul><li><strong>Bước:</strong> đăng nhập xong, thực hiện 1 hành động nhạy cảm (vd đổi mật khẩu, tắt 2FA).</li><li><strong>Kết quả mong đợi:</strong> <code>StepUpModal</code> hiện ra yêu cầu xác thực lại (mã 2FA); không xác thực thì không thao tác được tiếp.</li></ul>
+</article>
+<article class="tc" id="AUTH-06" data-p="Trung bình"><header><span class="id">AUTH-06</span><h3>Nhập sai mã 2FA nhiều lần</h3><span class="pri mid">Trung bình</span></header>
+<ul><li><strong>Bước:</strong> ở màn hình <code>TwoFactorChallenge</code>, nhập sai mã 3 lần liên tiếp.</li><li><strong>Kết quả mong đợi:</strong> hệ thống báo lỗi rõ ràng và/hoặc khoá tạm thời; không có cách nào bypass được 2FA.</li></ul>
+</article>
+<article class="tc" id="AUTH-07" data-p="Cao"><header><span class="id">AUTH-07</span><h3>Signup Wizard, luồng đăng ký đầy đủ</h3><span class="pri hi">Cao</span></header>
+<ul><li><strong>Bước:</strong> mở link đăng ký mới, điền lần lượt các bước wizard, hoàn tất.</li><li><strong>Kết quả mong đợi:</strong> tài khoản + account mới tạo thành công, vào thẳng app.</li><li><strong>Bổ sung:</strong> ở mỗi bước, bỏ trống field bắt buộc và bấm Next → phải validate chặn lại, không cho qua bước kế.</li></ul>
+</article>
+<article class="tc" id="AUTH-08" data-p="Trung bình"><header><span class="id">AUTH-08</span><h3>Invite Accept, link hợp lệ</h3><span class="pri mid">Trung bình</span></header>
+<ul><li><strong>Bước:</strong> mở link mời hợp lệ (chưa dùng), điền thông tin nếu được yêu cầu, bấm Accept.</li><li><strong>Kết quả mong đợi:</strong> được thêm vào đúng account, đăng nhập thành công vào account đó.</li></ul>
+</article>
+<article class="tc" id="AUTH-09" data-p="Trung bình"><header><span class="id">AUTH-09</span><h3>Invite Accept, link hết hạn/đã dùng</h3><span class="pri mid">Trung bình</span></header>
+<ul><li><strong>Bước:</strong> mở lại 1 link invite đã accept trước đó, hoặc link hết hạn.</li><li><strong>Kết quả mong đợi:</strong> hiển thị thông báo lỗi thân thiện, có tuỳ chọn gửi lại lời mời (không hiện lỗi kỹ thuật thô).</li></ul>
+</article>
+<article class="tc" id="AUTH-10" data-p="Trung bình"><header><span class="id">AUTH-10</span><h3>Select Account với user thuộc nhiều account</h3><span class="pri mid">Trung bình</span></header>
+<ul><li><strong>Bước:</strong> đăng nhập bằng user thuộc ≥2 account, kiểm tra danh sách account hiển thị đầy đủ, chọn 1 account.</li><li><strong>Kết quả mong đợi:</strong> danh sách đúng tên/role từng account; chọn xong vào đúng account đã chọn.</li></ul>
+</article>
+<article class="tc" id="AUTH-11" data-p="Trung bình"><header><span class="id">AUTH-11</span><h3>Consent gate (cookie/policy)</h3><span class="pri mid">Trung bình</span></header>
+<ul><li><strong>Bước:</strong> vào app lần đầu (hoặc sau khi policy được cập nhật), thử "Decline" rồi thử lại với "Accept".</li><li><strong>Kết quả mong đợi:</strong> Accept → vào app bình thường; Decline → đúng hành vi thiết kế (chặn/giới hạn truy cập), không crash.</li></ul>
+</article>
+<article class="tc" id="AUTH-12" data-p="Trung bình"><header><span class="id">AUTH-12</span><h3>Agreement Gate</h3><span class="pri mid">Trung bình</span></header>
+<ul><li><strong>Bước:</strong> đăng nhập bằng account có agreement mới cần ký, thử điều hướng vào app trước khi ký.</li><li><strong>Kết quả mong đợi:</strong> bị chặn ở gate tới khi đồng ý + submit; sau khi ký xong vào app bình thường và không hỏi lại.</li></ul>
+</article>
+<article class="tc" id="AUTH-13" data-p="Thấp"><header><span class="id">AUTH-13</span><h3>TwoFa SMS Preview (công cụ nội bộ)</h3><span class="pri lo">Thấp</span></header>
+<ul><li><strong>Ghi chú:</strong> chỉ dùng nội bộ dev, không phải luồng người dùng cuối.</li><li><strong>Bước:</strong> mở trang preview, kiểm tra render không lỗi.</li><li><strong>Kết quả mong đợi:</strong> trang hiển thị đúng layout, không lỗi console chặn hiển thị.</li></ul>
+</article>
+<h4 class="sub" id="s2">A.2 Data Rules</h4>
+<article class="tc" id="DR-01" data-p="Cao"><header><span class="id">DR-01</span><h3>Properties, tab "Default"</h3><span class="pri hi">Cao</span></header>
+<ul><li><strong>Bước:</strong> vào Data Rules → Properties → tab Default; dùng search/filter nếu có.</li><li><strong>Kết quả mong đợi:</strong> danh sách builtin properties đầy đủ, đúng; search/filter hoạt động đúng, không có nhãn "coming soon"/placeholder.</li></ul>
+</article>
+<article class="tc" id="DR-02" data-p="Cao"><header><span class="id">DR-02</span><h3>Web Platforms</h3><span class="pri hi">Cao</span></header>
+<ul><li><strong>Bước:</strong> xem danh sách Web Platforms; tạo/sửa/xoá 1 cấu hình platform qua UI; gán vào 1 website.</li><li><strong>Kết quả mong đợi:</strong> thao tác CRUD phản ánh ngay trên danh sách, không cần reload trang.</li></ul>
+</article>
+<article class="tc" id="DR-03" data-p="Cao"><header><span class="id">DR-03</span><h3>Custom Variables, tạo mới qua wizard + folder</h3><span class="pri hi">Cao</span></header>
+<ul><li><strong>Bước:</strong> bấm "Create custom variable", điền wizard, tạo 1 folder mới, lưu variable vào folder đó.</li><li><strong>Kết quả mong đợi:</strong> variable mới xuất hiện đúng trong folder; sửa/xoá phản ánh ngay trên UI.</li></ul>
+</article>
+<article class="tc" id="DR-04" data-p="Trung bình"><header><span class="id">DR-04</span><h3>Custom Variables, lookup table</h3><span class="pri mid">Trung bình</span></header>
+<ul><li><strong>Bước:</strong> tạo variable kiểu lookup table, thêm vài dòng mapping, lưu, mở lại để kiểm tra.</li><li><strong>Kết quả mong đợi:</strong> mapping lưu đúng và hiển thị lại chính xác khi mở lại.</li></ul>
+</article>
+<h4 class="sub" id="s3">A.3 Actions</h4>
+<article class="tc" id="ACT-01" data-p="Cao"><header><span class="id">ACT-01</span><h3>Triggers, CRUD đầy đủ + cross-dependency</h3><span class="pri hi">Cao</span></header>
+<ul><li><strong>Bước:</strong> tạo trigger mới qua panel (<code>?panel=trigger:id</code>), sửa, tạo folder quản lý; sau đó thử xoá 1 trigger đang được 1 conversion khác tham chiếu.</li><li><strong>Kết quả mong đợi:</strong> CRUD phản ánh ngay trên UI; xoá trigger đang bị phụ thuộc → hiện modal cảnh báo cross-dependency, chặn hoặc yêu cầu xác nhận rõ ràng trước khi xoá.</li></ul>
+</article>
+<article class="tc" id="ACT-02" data-p="Cao"><header><span class="id">ACT-02</span><h3>Conversions, CRUD + liên kết trigger</h3><span class="pri hi">Cao</span></header>
+<ul><li><strong>Bước:</strong> tạo conversion mới, gán 1 trigger có sẵn, sửa, xoá.</li><li><strong>Kết quả mong đợi:</strong> CRUD hoạt động đúng; liên kết trigger ↔ conversion hiển thị nhất quán ở cả hai phía.</li></ul>
+</article>
+<h4 class="sub" id="s4">A.4 Projects &amp; Canvas</h4>
+<article class="tc" id="PC-01" data-p="Cao"><header><span class="id">PC-01</span><h3>Canvas / chart-builder engine</h3><span class="pri hi">Cao</span></header>
+<ul><li><strong>Bước:</strong> tạo 1 canvas mới, dùng ChartDataPicker chọn nguồn dữ liệu, BlendPicker blend 2 nguồn, GroupByControl group theo field, lưu, mở lại.</li><li><strong>Kết quả mong đợi:</strong> chart render đúng cấu hình; mở lại giữ nguyên config đã lưu; nhập cấu hình không hợp lệ phải bị chặn (validate) với thông báo rõ, không cho lưu cấu hình sai.</li></ul>
+</article>
+<article class="tc" id="PC-02" data-p="Trung bình"><header><span class="id">PC-02</span><h3>Canvas dùng trong Axle chat</h3><span class="pri mid">Trung bình</span></header>
+<ul><li><strong>Bước:</strong> yêu cầu Axle chat tạo 1 biểu đồ; sau khi chart hiện ra, mở nó bằng canvas editor để chỉnh sửa tiếp.</li><li><strong>Kết quả mong đợi:</strong> chart do AI tạo render đúng bằng chung canvas engine, chỉnh sửa tiếp được như chart tạo thủ công.</li></ul>
+</article>
+<h4 class="sub" id="s5">A.5 Settings</h4>
+<article class="tc" id="SET-01" data-p="Cao"><header><span class="id">SET-01</span><h3>General Settings, gated-wait lockdown</h3><span class="pri hi">Cao</span></header>
+<ul><li><strong>Bước:</strong> sửa 1 field, bấm Save; trong lúc đang lưu, thử sửa field khác hoặc bấm nút khác trên form.</li><li><strong>Kết quả mong đợi:</strong> toàn bộ form bị khoá (disabled) trong lúc lưu; sau khi lưu xong mở khoá lại, dữ liệu mới hiển thị đúng ngay không cần reload.</li></ul>
+</article>
+<article class="tc" id="SET-02" data-p="Cao"><header><span class="id">SET-02</span><h3>Users &amp; Permissions, phân quyền</h3><span class="pri hi">Cao</span></header>
+<ul><li><strong>Bước:</strong> thêm user mới vào account, gán role/permission, sửa quyền 1 user có sẵn, xoá 1 user.</li><li><strong>Kết quả mong đợi:</strong> thay đổi có hiệu lực ngay trên UI; đăng nhập lại bằng chính user đó (qua UI, tab khác) để xác nhận quyền mới đúng như đã gán.</li></ul>
+</article>
+<article class="tc" id="SET-03" data-p="Cao"><header><span class="id">SET-03</span><h3>Features (feature-bundles)</h3><span class="pri hi">Cao</span></header>
+<ul><li><strong>Bước:</strong> bật 1 feature bundle, kiểm tra tính năng liên quan xuất hiện đúng vị trí trong nav/UI; tắt lại.</li><li><strong>Kết quả mong đợi:</strong> bật/tắt phản ánh ngay trong toàn app, không cần reload trang.</li></ul>
+</article>
+<article class="tc" id="SET-04" data-p="Trung bình"><header><span class="id">SET-04</span><h3>Websites &amp; Locations</h3><span class="pri mid">Trung bình</span></header>
+<ul><li><strong>Bước:</strong> thêm 1 website mới, kiểm tra hiển thị trong danh sách; quan sát sparkline hoạt động 14 ngày.</li><li><strong>Kết quả mong đợi:</strong> CRUD website/location là thật và hoạt động đúng; riêng sparkline là dữ liệu cosmetic tất định — <strong>không</strong> báo bug nếu số liệu sparkline không khớp thực tế, chỉ báo nếu nó lỗi hiển thị/crash.</li></ul>
+</article>
+<article class="tc" id="SET-05" data-p="Cao"><header><span class="id">SET-05</span><h3>Connectors, eager mutation</h3><span class="pri hi">Cao</span></header>
+<ul><li><strong>Bước:</strong> kết nối 1 connector, sửa cấu hình, ngắt kết nối.</li><li><strong>Kết quả mong đợi:</strong> UI cập nhật ngay lập tức sau mỗi thao tác (không có độ trễ do refetch-after-write); không tự reload toàn trang.</li></ul>
+</article>
+<article class="tc" id="SET-06" data-p="Trung bình"><header><span class="id">SET-06</span><h3>Account/User Settings modal</h3><span class="pri mid">Trung bình</span></header>
+<ul><li><strong>Bước:</strong> mở modal cài đặt tài khoản cá nhân, đổi tên hiển thị/avatar, lưu.</li><li><strong>Kết quả mong đợi:</strong> lưu thành công, hiển thị ngay trên header/avatar không cần reload.</li></ul>
+</article>
+<h4 class="sub" id="s6">A.6 Admin</h4>
+<article class="tc" id="ADM-01" data-p="Cao"><header><span class="id">ADM-01</span><h3>Accounts, list + CRUD</h3><span class="pri hi">Cao</span></header>
+<ul><li><strong>Bước:</strong> tìm/lọc account, mở slideout sửa account, thử luồng reset account, thử luồng xoá account (<strong>chỉ dùng account test, tuyệt đối không dùng account thật/production</strong>).</li><li><strong>Kết quả mong đợi:</strong> CRUD hoạt động đầy đủ; luồng reset/xoá có bước xác nhận rõ ràng (confirm dialog) trước khi thực thi để tránh thao tác nhầm.</li></ul>
+</article>
+<article class="tc" id="ADM-02" data-p="Cao"><header><span class="id">ADM-02</span><h3>Users, list + CRUD</h3><span class="pri hi">Cao</span></header>
+<ul><li><strong>Bước:</strong> tìm/lọc user, sửa thông tin 1 user, thử nút "Log in as" (impersonation).</li><li><strong>Kết quả mong đợi:</strong> CRUD user hoạt động đúng; nút "Log in as" hiện toast "coming soon" — đây là hành vi đúng hiện tại, không phải lỗi.</li></ul>
+</article>
+<article class="tc" id="ADM-03" data-p="Cao"><header><span class="id">ADM-03</span><h3>Agreements, soạn thảo Markdown</h3><span class="pri hi">Cao</span></header>
+<ul><li><strong>Bước:</strong> tạo agreement mới, soạn nội dung Markdown, xem preview, lưu, publish.</li><li><strong>Kết quả mong đợi:</strong> Markdown render đúng ở preview; lưu/publish thành công; nội dung publish hiển thị đúng ở màn hình Agreement Gate (đối chiếu AUTH-12) cho user cần ký.</li></ul>
+</article>
+<article class="tc" id="ADM-04" data-p="Trung bình"><header><span class="id">ADM-04</span><h3>Active "Act As" Sessions Panel</h3><span class="pri mid">Trung bình</span></header>
+<ul><li><strong>Bước:</strong> bắt đầu 1 phiên "Act As" một user khác, kiểm tra panel liệt kê đúng phiên đang active, sau đó kết thúc phiên.</li><li><strong>Kết quả mong đợi:</strong> panel cập nhật đúng theo thời gian thực; sau khi kết thúc, phiên không còn xuất hiện trong danh sách active.</li></ul>
+</article>
+<h4 class="sub" id="s7">A.7 AI Chat / Create</h4>
+<article class="tc" id="AI-01" data-p="Cao"><header><span class="id">AI-01</span><h3>Axle Chat, streaming thật</h3><span class="pri hi">Cao</span></header>
+<ul><li><strong>Bước:</strong> mở Axle chat ở cả 3 chế độ hiển thị (docked/floating/collapsed), gửi 1 câu hỏi, quan sát cách phản hồi xuất hiện.</li><li><strong>Kết quả mong đợi:</strong> phản hồi xuất hiện dần theo thời gian thực (trạng thái streaming thật), không phải chờ cố định rồi hiện nguyên cục; chuyển đổi qua lại giữa 3 chế độ hiển thị không làm mất session đang chat.</li></ul>
+</article>
+<article class="tc" id="AI-02" data-p="Cao"><header><span class="id">AI-02</span><h3>Create / Conversational Shell</h3><span class="pri hi">Cao</span></header>
+<ul><li><strong>Bước:</strong> vào Create, nhập yêu cầu tạo nội dung bằng AI, theo dõi card kết quả hiển thị.</li><li><strong>Kết quả mong đợi:</strong> luồng chạy hết tới khi có kết quả, card render đúng định dạng nội dung; không xuất hiện nhãn stub/placeholder nào trong luồng.</li></ul>
+<p><strong>Ghi chú Phần A:</strong> các tính năng "Dở dang" (DR-05→DR-11, SET-07, SET-08) và 19 tính năng "Chưa làm" không có trong file này. Khi chúng hoàn thành, thêm lại từ <code>TEST_CASES.md</code>.</p>
+</article>
+</section>
+<section><h2 id="s8">Phần B — SDK (Tracker)</h2>
+<div class="note">Nguồn: <code>services/collect/sdk/CLAUDE.md</code>, <code>services/collect/sdk/e2e/CLAUDE.md</code>, <code>services/simulations/sites/static-html/public/</code> (292+ trang sim). 28 testcase cho hành vi tracking script (<code>window._ll</code>).<br>Môi trường: <code>pnpm dev:everything</code>, mở sim site qua dev server, thêm <code>?_ll_preview=1</code> vào URL test để tránh cache SDK cũ.</div>
+<h4 class="sub" id="s9">B.1 Pageview &amp; điều hướng</h4>
+<article class="tc" id="SDK-01" data-p="Cao"><header><span class="id">SDK-01</span><h3>Pageview tự động khi tải trang</h3><span class="pri hi">Cao</span></header>
+<ul><li><strong>Bước:</strong> mở DevTools → Network, filter theo request collect; load 1 trang sim bất kỳ (vd <code>content-extraction/simple-article.html</code>).</li><li><strong>Kết quả mong đợi:</strong> có 1 request <code>t: "pv"</code> gửi ngay khi trang tải xong; payload đủ field bắt buộc (<code>a</code>, <code>ts</code>, <code>cid</code>, <code>cs</code>, <code>url</code>, <code>pvid</code>, <code>d.tt</code> = tiêu đề trang).</li></ul>
+</article>
+<article class="tc" id="SDK-02" data-p="Cao"><header><span class="id">SDK-02</span><h3>Pageview khi điều hướng SPA</h3><span class="pri hi">Cao</span></header>
+<ul><li><strong>Bước:</strong> mở sim SPA (<code>react-spa</code>, <code>nextjs-ssr</code>, hoặc <code>content-extraction/spa-content.html</code>); điều hướng qua lại giữa các route không reload toàn trang.</li><li><strong>Kết quả mong đợi:</strong> mỗi lần đổi route sinh thêm 1 event <code>pv</code> mới, <code>d.nav</code> phản ánh điều hướng SPA, <code>d.prev</code> = URL trước đó; không có full page reload trong Network tab.</li></ul>
+</article>
+<h4 class="sub" id="s10">B.2 Click tracking</h4>
+<article class="tc" id="SDK-03" data-p="Cao"><header><span class="id">SDK-03</span><h3>Click các loại phần tử (link/button/download/tel/mailto/CTA)</h3><span class="pri hi">Cao</span></header>
+<ul><li><strong>Bước:</strong> mở <code>clicks/click-testing.html</code>, <code>link-clicks.html</code>, <code>cta-buttons.html</code>, <code>pdf-downloads.html</code>; click lần lượt: link nội bộ, link ngoài, button, link tải PDF, link <code>tel:</code>, link <code>mailto:</code>, phần tử có <code>data-ll-*</code>.</li><li><strong>Kết quả mong đợi:</strong> mỗi click sinh 1 event <code>t: "click"</code> với <code>d.ct</code> đúng loại; link ngoài có <code>d.ext: true</code>; PDF có <code>d.dl: "pdf"</code>; CTA có <code>d.ll</code> chứa đúng <code>data-ll-*</code>.</li></ul>
+</article>
+<article class="tc" id="SDK-04" data-p="Trung bình"><header><span class="id">SDK-04</span><h3>Click trong Shadow DOM</h3><span class="pri mid">Trung bình</span></header>
+<ul><li><strong>Bước:</strong> mở <code>clicks/shadow-dom-rules.html</code>, click phần tử nằm trong shadow DOM.</li><li><strong>Kết quả mong đợi:</strong> event click gửi đi có <code>d.shadow: true</code>, vẫn đủ thông tin element (tag, text…).</li></ul>
+</article>
+<article class="tc" id="SDK-05" data-p="Trung bình"><header><span class="id">SDK-05</span><h3>Click phần tử disable không tạo event (negative)</h3><span class="pri mid">Trung bình</span></header>
+<ul><li><strong>Bước:</strong> thử click 1 nút đang disable (force click nếu cần).</li><li><strong>Kết quả mong đợi:</strong> KHÔNG có event click mới nào được gửi.</li></ul>
+</article>
+<h4 class="sub" id="s11">B.3 Scroll &amp; Session</h4>
+<article class="tc" id="SDK-06" data-p="Cao"><header><span class="id">SDK-06</span><h3>Scroll milestone (25/50/75/90/100%)</h3><span class="pri hi">Cao</span></header>
+<ul><li><strong>Bước:</strong> mở 1 trang đủ dài (vd <code>content-extraction/blog-post.html</code>), cuộn từ từ xuống hết trang.</li><li><strong>Kết quả mong đợi:</strong> có các event <code>t: "scr"</code> riêng biệt tại từng mốc 25/50/75/90/100, mỗi mốc chỉ gửi đúng 1 lần; <code>d.dp</code>/<code>d.ms</code> khớp mốc.</li></ul>
+</article>
+<article class="tc" id="SDK-07" data-p="Trung bình"><header><span class="id">SDK-07</span><h3>Session end (ss) khi rời trang</h3><span class="pri mid">Trung bình</span></header>
+<ul><li><strong>Bước:</strong> ở lại trang, tương tác (scroll/click), sau đó đóng tab hoặc điều hướng sang site khác.</li><li><strong>Kết quả mong đợi:</strong> gửi được 1 event <code>t: "ss"</code> trước khi rời trang, chứa thời lượng phiên/thời gian hoạt động/độ sâu cuộn đã đạt.</li></ul>
+</article>
+<h4 class="sub" id="s12">B.4 Form tracking</h4>
+<article class="tc" id="SDK-08" data-p="Cao"><header><span class="id">SDK-08</span><h3>Form native/custom (fingerprint + lifecycle)</h3><span class="pri hi">Cao</span></header>
+<ul><li><strong>Bước:</strong> mở <code>content-extraction/single-form.html</code> hoặc <code>form-attribute.html</code>, điền và submit.</li><li><strong>Kết quả mong đợi:</strong> sinh event <code>t: "form"</code> phản ánh đúng lifecycle (start/submit), có fingerprint, platform code <code>nat</code> nếu không khớp platform cụ thể nào.</li></ul>
+</article>
+<article class="tc" id="SDK-09" data-p="Cao"><header><span class="id">SDK-09</span><h3>Form platform detection (HubSpot/Marketo/Pardot/Gravity/WPForms/CF7/Mailchimp/Typeform/Jotform/Elementor)</h3><span class="pri hi">Cao</span></header>
+<ul><li><strong>Bước:</strong> mở sim page tương ứng từng platform (WP Docker sim cho Gravity/WPForms/CF7 — xem <code>.claude/rules/dev-server.md</code>), điền và submit form.</li><li><strong>Kết quả mong đợi:</strong> mỗi loại nhận diện đúng platform code (<code>hs</code>/<code>mk</code>/<code>pd</code>/<code>gf</code>/<code>wpf</code>/<code>cf7</code>/<code>mc</code>/<code>tf</code>/<code>jf</code>/<code>el</code>); platform lạ → <code>unk</code>.</li><li><strong>Ghi chú:</strong> lặp lại testcase này cho từng platform có sim page tương ứng.</li></ul>
+</article>
+<h4 class="sub" id="s13">B.5 Person Detection (10 nguồn)</h4>
+<article class="tc" id="SDK-10" data-p="Cao"><header><span class="id">SDK-10</span><h3>Person detection từ form (nguồn <code>form</code>, confidence 0.95)</h3><span class="pri hi">Cao</span></header>
+<ul><li><strong>Bước:</strong> điền form có trường email, submit.</li><li><strong>Kết quả mong đợi:</strong> sinh event <code>pp</code> (possiblePerson) riêng, nguồn <code>form</code>, confidence ~0.95.</li></ul>
+</article>
+<article class="tc" id="SDK-11" data-p="Trung bình"><header><span class="id">SDK-11</span><h3>Person detection từ dataLayer push (nguồn <code>datalayer</code>)</h3><span class="pri mid">Trung bình</span></header>
+<ul><li><strong>Bước:</strong> trên trang có tích hợp dataLayer, kích hoạt <code>dataLayer.push()</code> chứa email (qua nút demo trên sim page nếu có).</li><li><strong>Kết quả mong đợi:</strong> sinh event <code>pp</code> nguồn <code>datalayer</code>.</li></ul>
+</article>
+<article class="tc" id="SDK-12" data-p="Trung bình"><header><span class="id">SDK-12</span><h3>Person detection từ URL param (nguồn <code>urlParam</code>)</h3><span class="pri mid">Trung bình</span></header>
+<ul><li><strong>Bước:</strong> mở trang với query string <code>?email=test@example.com</code>.</li><li><strong>Kết quả mong đợi:</strong> sinh event <code>pp</code> nguồn <code>urlParam</code>.</li></ul>
+</article>
+<article class="tc" id="SDK-13" data-p="Cao"><header><span class="id">SDK-13</span><h3>Person detection explicit qua <code>_ll.identifyPerson()</code> (confidence 1.0)</h3><span class="pri hi">Cao</span></header>
+<ul><li><strong>Bước:</strong> mở console trình duyệt, gọi <code>window._ll.identifyPerson({...})</code> (hoặc nút demo nếu sim page có).</li><li><strong>Kết quả mong đợi:</strong> sinh event <code>id</code> (không phải <code>pp</code>) với confidence 1.0, nguồn <code>explicit</code>.</li></ul>
+</article>
+<article class="tc" id="SDK-14" data-p="Thấp"><header><span class="id">SDK-14</span><h3>Person detection từ chat / ecommerce / video / network / custom</h3><span class="pri lo">Thấp</span></header>
+<ul><li><strong>Bước:</strong> lặp lại theo từng nguồn còn lại trong bảng 10 nguồn (<code>chat</code> qua pre-chat form, <code>ecommerce</code> qua checkout, <code>video</code> qua email capture, <code>network</code> qua XHR/fetch chứa PII, <code>custom</code> qua <code>dataLayer.push()</code> do khách hàng tự định nghĩa).</li><li><strong>Kết quả mong đợi:</strong> mỗi nguồn sinh đúng event <code>pp</code> với <code>source</code> và confidence tương ứng bảng trong <code>CLAUDE.md</code> (network 0.85, chat 0.85, scheduling 0.90, ecommerce 0.90, video 0.75, custom 0.70).</li></ul>
+</article>
+<h4 class="sub" id="s14">B.6 eCommerce integrations</h4>
+<article class="tc" id="SDK-15" data-p="Cao"><header><span class="id">SDK-15</span><h3>Luồng eCommerce cơ bản: view → add-to-cart → checkout → purchase</h3><span class="pri hi">Cao</span></header>
+<ul><li><strong>Bước:</strong> mở <code>ecommerce/base/</code> (hoặc <code>ecommerce/ga4-gtag/</code>, <code>ecommerce/ga4-datalayer/</code>): xem catalog → chi tiết sản phẩm → thêm giỏ → checkout → trang thank-you.</li><li><strong>Kết quả mong đợi:</strong> đúng chuỗi event eCommerce tương ứng platform; dữ liệu sản phẩm/giá/số lượng khớp thao tác thực tế trên trang.</li></ul>
+</article>
+<article class="tc" id="SDK-16" data-p="Trung bình"><header><span class="id">SDK-16</span><h3>eCommerce theo từng platform (Shopify/WooCommerce/BigCommerce/Magento/Squarespace/gtag/GA4 dataLayer)</h3><span class="pri mid">Trung bình</span></header>
+<ul><li><strong>Bước:</strong> lặp lại SDK-15 cho từng platform trong <code>src/integrations/ecommerce/&lt;platform&gt;/</code> có sim tương ứng.</li><li><strong>Kết quả mong đợi:</strong> mỗi platform tự nhận diện đúng (self-registering detector), payload eCommerce nhất quán giữa các platform dù cấu trúc nguồn khác nhau.</li></ul>
+</article>
+<h4 class="sub" id="s15">B.7 Chat integrations</h4>
+<article class="tc" id="SDK-17" data-p="Trung bình"><header><span class="id">SDK-17</span><h3>Chat widget detection (Drift/HubSpot/Intercom/LiveChat/Qualified)</h3><span class="pri mid">Trung bình</span></header>
+<ul><li><strong>Bước:</strong> mở từng trang mock trong <code>chat/</code> (<code>drift-mock.html</code>, <code>hubspot-mock.html</code>, <code>intercom-mock.html</code>, <code>livechat-mock.html</code>, <code>qualified-mock.html</code>); mở widget, điền pre-chat form có email nếu có.</li><li><strong>Kết quả mong đợi:</strong> sinh event chat integration tương ứng; pre-chat form có email → sinh thêm <code>pp</code> nguồn <code>chat</code>.</li></ul>
+</article>
+<h4 class="sub" id="s16">B.8 Custom events &amp; attribution</h4>
+<article class="tc" id="SDK-18" data-p="Trung bình"><header><span class="id">SDK-18</span><h3>Custom events qua <code>_ll.track()</code></h3><span class="pri mid">Trung bình</span></header>
+<ul><li><strong>Bước:</strong> mở <code>custom-events/custom-events-testing.html</code>, bấm các nút demo gọi <code>_ll.track(name, params)</code>.</li><li><strong>Kết quả mong đợi:</strong> mỗi lần bấm sinh đúng 1 event custom với tên + params đã khai báo.</li></ul>
+</article>
+<article class="tc" id="SDK-19" data-p="Trung bình"><header><span class="id">SDK-19</span><h3>Click ID capture (gclid/fbclid/msclkid…)</h3><span class="pri mid">Trung bình</span></header>
+<ul><li><strong>Bước:</strong> mở <code>click-ids/index.html</code> hoặc thêm query param click id vào URL sim page bất kỳ.</li><li><strong>Kết quả mong đợi:</strong> pageview event có <code>cids</code> chứa đúng click id tương ứng.</li></ul>
+</article>
+<article class="tc" id="SDK-20" data-p="Cao"><header><span class="id">SDK-20</span><h3>UTM / traffic source attribution</h3><span class="pri hi">Cao</span></header>
+<ul><li><strong>Bước:</strong> mở trang với đầy đủ <code>utm_source/medium/campaign/term/content</code>.</li><li><strong>Kết quả mong đợi:</strong> pageview event có <code>utm</code> object khớp đúng từng field.</li></ul>
+</article>
+<article class="tc" id="SDK-21" data-p="Trung bình"><header><span class="id">SDK-21</span><h3>Cross-domain tracking</h3><span class="pri mid">Trung bình</span></header>
+<ul><li><strong>Bước:</strong> mở <code>cross-domain/index.html</code>, điều hướng sang <code>cross-domain/landing.html</code> (domain khác nếu sim mô phỏng đúng).</li><li><strong>Kết quả mong đợi:</strong> danh tính/attribution được giữ liên tục qua domain thứ hai (không bị coi là traffic source mới sai lệch).</li></ul>
+</article>
+<h4 class="sub" id="s17">B.9 Consent</h4>
+<article class="tc" id="SDK-22" data-p="Cao"><header><span class="id">SDK-22</span><h3>Consent state <code>dnt</code> (Do Not Track)</h3><span class="pri hi">Cao</span></header>
+<ul><li><strong>Bước:</strong> set consent = từ chối toàn bộ (dnt), tương tác với trang (click, scroll).</li><li><strong>Kết quả mong đợi:</strong> <code>cs</code> phản ánh đúng <code>dnt</code>; không set cookie định danh lâu dài; nếu có event gửi đi thì không chứa identity.</li></ul>
+</article>
+<article class="tc" id="SDK-23" data-p="Trung bình"><header><span class="id">SDK-23</span><h3>Consent state <code>anon</code></h3><span class="pri mid">Trung bình</span></header>
+<ul><li><strong>Bước:</strong> set consent ở mức chỉ functional (anonymous).</li><li><strong>Kết quả mong đợi:</strong> dữ liệu chỉ lưu trong memory/session, không set cookie lâu dài; <code>cs</code> phản ánh đúng <code>anon</code>.</li></ul>
+</article>
+<article class="tc" id="SDK-24" data-p="Cao"><header><span class="id">SDK-24</span><h3>Consent state <code>id</code> (đầy đủ)</h3><span class="pri hi">Cao</span></header>
+<ul><li><strong>Bước:</strong> chấp nhận toàn bộ consent.</li><li><strong>Kết quả mong đợi:</strong> cookie <code>ll_tm</code>/<code>ll_did</code> được set; dữ liệu identity đầy đủ; <code>cs</code> phản ánh đúng <code>id</code>.</li></ul>
+</article>
+<article class="tc" id="SDK-25" data-p="Trung bình"><header><span class="id">SDK-25</span><h3>Multi-tab consent sync</h3><span class="pri mid">Trung bình</span></header>
+<ul><li><strong>Bước:</strong> mở cùng 1 site ở 2 tab, đổi consent ở tab 1.</li><li><strong>Kết quả mong đợi:</strong> tab 2 nhận được thay đổi (qua lắng nghe <code>storage</code> event trên key <code>_ll_tm</code>) mà không cần reload thủ công để request tiếp theo dùng đúng consent mới.</li></ul>
+</article>
+<h4 class="sub" id="s18">B.10 Transport &amp; cookie</h4>
+<article class="tc" id="SDK-26" data-p="Trung bình"><header><span class="id">SDK-26</span><h3>Transport selection: fetch vs sendBeacon</h3><span class="pri mid">Trung bình</span></header>
+<ul><li><strong>Bước:</strong> quan sát loại request (fetch/XHR vs Beacon) trong 2 tình huống: lần đầu vào site (chưa có cookie <code>ll_tm</code>) và các lần sau khi cookie đã khớp consent hiện tại.</li><li><strong>Kết quả mong đợi:</strong> lần đầu dùng <code>fetch()</code> (cần đọc response để set <code>u_tm</code>/<code>u_did</code>); các lần sau khi consent khớp cookie dùng <code>sendBeacon()</code>.</li></ul>
+</article>
+<article class="tc" id="SDK-27" data-p="Thấp"><header><span class="id">SDK-27</span><h3>First-party cookie qua response body trên Safari/Firefox</h3><span class="pri lo">Thấp</span></header>
+<ul><li><strong>Precondition:</strong> test trên Safari hoặc Firefox (ITP/ETP chặn 3rd-party Set-Cookie).</li><li><strong>Bước:</strong> vào site lần đầu, quan sát cookie <code>ll_tm</code>/<code>ll_did</code> được set.</li><li><strong>Kết quả mong đợi:</strong> cookie set thành công qua <code>document.cookie</code> (first-party context), không bị trình duyệt chặn.</li></ul>
+</article>
+<article class="tc" id="SDK-28" data-p="Trung bình"><header><span class="id">SDK-28</span><h3>Trigger polling &amp; runaway protection</h3><span class="pri mid">Trung bình</span></header>
+<ul><li><strong>Precondition:</strong> sim page có cấu hình trigger cần polling (xem <code>docs/SDK-FLOW.md</code> §3.4).</li><li><strong>Bước:</strong> thực hiện hành động kích hoạt điều kiện trigger, theo dõi các polling request trong Network tab.</li><li><strong>Kết quả mong đợi:</strong> polling có backoff hợp lý và dừng đúng lúc khi điều kiện được thoả hoặc hết thời gian chờ — không polling vô hạn.</li></ul>
+<p><strong>Ghi chú Phần B:</strong> với các tính năng có nhiều biến thể (7 platform eCommerce, ~11 platform form, 10 nguồn person detection), mỗi nhóm chỉ viết 1-2 testcase mẫu chi tiết + 1 testcase "lặp lại cho từng biến thể" — khi thực thi, tester nhân bản testcase mẫu cho từng biến thể còn lại.</p>
+</article>
+</section>
+<section><h2 id="s19">Phần C — Preview System</h2>
+<div class="note">Nguồn: <code>services/collect/preview/CLAUDE.md</code>. 15 testcase cho Preview Viewer — xem event real-time, debug JS qua DevTools (Chii), vòng đời/bảo mật phiên preview.<br>Hai previewer, một codebase: <strong>Dev team website</strong> (<code>preview.dev.remote.listenlayer.com</code>, Cloudflare Access SSO <code>@screen1.io</code>) và <strong>Customer in-app</strong> (trong dashboard chính, cần quyền <code>preview.launch</code> + account membership). Testcase nào chỉ áp dụng cho 1 trong 2 sẽ ghi rõ.</div>
+<h4 class="sub" id="s20">C.1 Khởi tạo phiên &amp; luồng dữ liệu</h4>
+<article class="tc" id="PRV-01" data-p="Cao"><header><span class="id">PRV-01</span><h3>Mở phiên Preview cho 1 sim site</h3><span class="pri hi">Cao</span></header>
+<ul><li><strong>Precondition:</strong> đăng nhập Preview Viewer (dev team SSO, hoặc customer in-app nếu test theo luồng khách hàng).</li><li><strong>Bước:</strong> chọn 1 site/sim, bấm bắt đầu Preview.</li><li><strong>Kết quả mong đợi:</strong> sim site load trong iframe kèm <code>?_ll_preview=&lt;sessionId&gt;</code>; session ID đúng định dạng <code>prv_{timestamp36}_{random8}</code>.</li></ul>
+</article>
+<article class="tc" id="PRV-02" data-p="Cao"><header><span class="id">PRV-02</span><h3>Events panel hiển thị real-time</h3><span class="pri hi">Cao</span></header>
+<ul><li><strong>Bước:</strong> trong lúc preview, tương tác với sim site (click, scroll, submit form).</li><li><strong>Kết quả mong đợi:</strong> Events panel cập nhật gần như ngay lập tức (polling Preview DO), hiển thị đúng loại event vừa phát sinh.</li></ul>
+</article>
+<article class="tc" id="PRV-03" data-p="Cao"><header><span class="id">PRV-03</span><h3>Preview mode gắn cờ <code>prv</code>, không rò rỉ vào dữ liệu thật</h3><span class="pri hi">Cao</span></header>
+<ul><li><strong>Bước:</strong> trong lúc preview, mở thêm tab DevTools của chính trình duyệt (Network) để xem payload event gửi đi.</li><li><strong>Kết quả mong đợi:</strong> event có field đánh dấu preview (route về Preview DO); qua dashboard/reporting thật của account, các event này KHÔNG xuất hiện trong dữ liệu chính thức.</li></ul>
+</article>
+<h4 class="sub" id="s21">C.2 DevTools (Chii — Direct Connection Mode)</h4>
+<article class="tc" id="PRV-04" data-p="Cao"><header><span class="id">PRV-04</span><h3>DevTools panel (Console/Network/Elements/Sources)</h3><span class="pri hi">Cao</span></header>
+<ul><li><strong>Bước:</strong> mở DevTools panel trong Preview Viewer, kiểm tra 4 tab Console/Network/Elements/Sources trên chính iframe sim site.</li><li><strong>Kết quả mong đợi:</strong> DevTools kết nối trực tiếp (Direct Connection Mode), không cần chọn target thủ công; thao tác trên sim site phản ánh đúng trong Console/Network/Elements.</li></ul>
+</article>
+<article class="tc" id="PRV-05" data-p="Trung bình"><header><span class="id">PRV-05</span><h3>DevTools tự kết nối lại sau khi điều hướng trang</h3><span class="pri mid">Trung bình</span></header>
+<ul><li><strong>Bước:</strong> trong iframe sim site, điều hướng sang trang khác (SPA hoặc full navigation).</li><li><strong>Kết quả mong đợi:</strong> DevTools tự reconnect (qua <code>reconnectKey</code>) không cần thao tác thủ công; vẫn cùng session/target ID (không tích luỹ target cũ).</li></ul>
+</article>
+<h4 class="sub" id="s22">C.3 Vòng đời phiên (10 phút inactivity)</h4>
+<article class="tc" id="PRV-06" data-p="Trung bình"><header><span class="id">PRV-06</span><h3>Warning banner khi còn ≤60 giây</h3><span class="pri mid">Trung bình</span></header>
+<ul><li><strong>Precondition:</strong> để phiên không có tương tác chuột/bàn phím/cuộn trong Preview Viewer đủ lâu (~9 phút).</li><li><strong>Bước:</strong> quan sát UI khi còn ≤60s trước hết hạn.</li><li><strong>Kết quả mong đợi:</strong> banner vàng "Session expires in Ns due to inactivity" xuất hiện kèm nút "Keep Active"; banner KHÔNG bị reset chỉ vì SDK gửi event (<code>pv</code>/<code>ss</code>…) — chỉ reset khi có tương tác thật của người dùng với Preview Viewer.</li></ul>
+</article>
+<article class="tc" id="PRV-07" data-p="Trung bình"><header><span class="id">PRV-07</span><h3>Bấm "Keep Active" gia hạn phiên</h3><span class="pri mid">Trung bình</span></header>
+<ul><li><strong>Bước:</strong> khi banner cảnh báo hiện, bấm "Keep Active".</li><li><strong>Kết quả mong đợi:</strong> banner biến mất ngay lập tức, timer local reset về active; phiên tiếp tục bình thường.</li></ul>
+</article>
+<article class="tc" id="PRV-08" data-p="Cao"><header><span class="id">PRV-08</span><h3>Phiên hết hạn → modal Resume / Start Fresh</h3><span class="pri hi">Cao</span></header>
+<ul><li><strong>Bước:</strong> để phiên hết hạn hoàn toàn (0s, không tương tác).</li><li><strong>Kết quả mong đợi:</strong> modal hiện đúng 2 lựa chọn "Resume Session" (mặc định) và "Start Fresh".</li></ul>
+</article>
+<article class="tc" id="PRV-09" data-p="Cao"><header><span class="id">PRV-09</span><h3>Resume Session</h3><span class="pri hi">Cao</span></header>
+<ul><li><strong>Bước:</strong> từ modal hết hạn, bấm "Resume".</li><li><strong>Kết quả mong đợi:</strong> modal đóng; events hiện tại bị xoá khỏi view (by design); session ID giữ nguyên (cookie không đổi); DevTools tự reconnect; các setting (vd geo override) được giữ nguyên.</li></ul>
+</article>
+<article class="tc" id="PRV-10" data-p="Trung bình"><header><span class="id">PRV-10</span><h3>Start Fresh</h3><span class="pri mid">Trung bình</span></header>
+<ul><li><strong>Bước:</strong> từ modal hết hạn, bấm "Start Fresh" (thử cả 2 trường hợp: có và không tick "purge device identification" nếu có tuỳ chọn).</li><li><strong>Kết quả mong đợi:</strong> session ID mới được tạo; toàn bộ state reset; tuỳ chọn purge device identification hoạt động đúng khi được chọn.</li></ul>
+</article>
+<article class="tc" id="PRV-11" data-p="Trung bình"><header><span class="id">PRV-11</span><h3>Reset Session chủ động (không do hết hạn)</h3><span class="pri mid">Trung bình</span></header>
+<ul><li><strong>Bước:</strong> đang trong phiên active, bấm nút "Reset Session".</li><li><strong>Kết quả mong đợi:</strong> DevTools target được cleanup trước khi purge; phiên mới bắt đầu sạch, tương đương Start Fresh.</li></ul>
+</article>
+<h4 class="sub" id="s23">C.4 Bảo mật &amp; phân quyền truy cập</h4>
+<article class="tc" id="PRV-12" data-p="Cao"><header><span class="id">PRV-12</span><h3>Dev team host yêu cầu SSO <code>@screen1.io</code></h3><span class="pri hi">Cao</span></header>
+<ul><li><strong>Precondition:</strong> tài khoản Google KHÔNG thuộc domain <code>@screen1.io</code>.</li><li><strong>Bước:</strong> thử truy cập <code>https://preview.dev.remote.listenlayer.com/</code>.</li><li><strong>Kết quả mong đợi:</strong> bị Cloudflare Zero-Trust chặn/yêu cầu đăng nhập đúng domain; không vào được nếu không phải <code>@screen1.io</code>.</li></ul>
+</article>
+<article class="tc" id="PRV-13" data-p="Trung bình"><header><span class="id">PRV-13</span><h3>Legacy host không đọc được dữ liệu preview thật</h3><span class="pri mid">Trung bình</span></header>
+<ul><li><strong>Bước:</strong> truy cập host cũ (<code>preview.dev.simulation.listenlayer.com</code> hoặc <code>ll-simulation-preview-dev.web.app</code>), thử xem event.</li><li><strong>Kết quả mong đợi:</strong> không đọc được preview event thật (endpoint public <code>/preview</code> đã retired trả 410) — đúng hành vi hiện tại, không phải bug; NẾU nó âm thầm hiển thị dữ liệu (sai/cũ) mà không cảnh báo thì đó là bug.</li></ul>
+</article>
+<article class="tc" id="PRV-14" data-p="Cao"><header><span class="id">PRV-14</span><h3>Customer in-app Previewer: quyền theo account membership</h3><span class="pri hi">Cao</span></header>
+<ul><li><strong>Precondition:</strong> User A có quyền <code>preview.launch</code> và thuộc account X; User B không thuộc account X (hoặc thiếu quyền <code>preview.launch</code>).</li><li><strong>Bước:</strong> User A mở Preview từ trong dashboard cho account X; User B thử truy cập cùng phiên preview đó (nếu biết URL/session).</li><li><strong>Kết quả mong đợi:</strong> User A preview bình thường; User B bị chặn — không xem được event của account mà mình không thuộc về, kể cả khi có URL.</li></ul>
+</article>
+<article class="tc" id="PRV-15" data-p="Cao"><header><span class="id">PRV-15</span><h3>Không rò rỉ target giữa các phiên khác nhau (multi-tenant privacy)</h3><span class="pri hi">Cao</span></header>
+<ul><li><strong>Precondition:</strong> mở 2 phiên preview riêng biệt (2 tester khác nhau hoặc 2 cửa sổ ẩn danh).</li><li><strong>Bước:</strong> ở phiên 1, kiểm tra Network tab của Preview Viewer không có request liệt kê danh sách target công khai chứa session người khác.</li><li><strong>Kết quả mong đợi:</strong> mỗi phiên chỉ kết nối trực tiếp tới đúng target/session của chính nó; không có cách nào từ UI thấy được target ID của phiên khác.</li></ul>
+<p><strong>Ghi chú Phần C:</strong> PRV-06 → PRV-11 cần thời gian chờ thực tế (~9-10 phút mỗi lần) — nên nhóm chạy chung một phiên test để tiết kiệm thời gian. PRV-14/PRV-15 nên chạy với 2 tài khoản/tester khác nhau để mô phỏng đúng ranh giới quyền.</p>
+</article>
+</section>
+<section><h2 id="s24">Phần E — Rule Engines (Traffic Source · Channel · Classification · Custom Variable Rules)</h2>
+<div class="note">Nguồn: <code>packages/schemas/src/settings/source/registry.ts</code> (SETTINGS_REGISTRY), edge pipeline <code>services/collect/edge/collect-edge/src/v2/pipeline/stages/</code>, <code>services/frontend/src/components/rules/</code>. 15 testcase cho các rule engine thật — nơi admin định nghĩa điều kiện match (+ priority/first-match-wins) qua dashboard, và điều kiện đó được evaluate live tại edge khi có event thật.<br><strong>Cách thao tác:</strong> browser + dashboard + sim site (giống Phần A/B) — tạo rule trong dashboard, publish, trigger event thật qua sim site, quan sát kết quả qua tab Network/Preview.<br><strong>Lưu ý:</strong> không nhầm với các khu vực "trông giống rule nhưng không phải" — Identity Rules chỉ là 2 toggle bật/tắt (không có match condition), Consent &amp; Privacy regional rules có evaluate ở edge nhưng KHÔNG có UI cấu hình (dashboard là stub thật), Segments là construct reporting/BigQuery chứ không evaluate ở edge, Bot/IP/Geo filtering là hardcoded constant chứ không phải rule admin cấu hình được.</div>
+<h4 class="sub" id="s25">E.1 Traffic Source Rules (edge stage <code>05c-traffic-source.ts</code>)</h4>
+<article class="tc" id="TS-01" data-p="Cao"><header><span class="id">TS-01</span><h3>Tạo rule mới match theo UTM (querystring)</h3><span class="pri hi">Cao</span></header>
+<ul><li><strong>Bước:</strong> vào Data Rules → Classifications → Traffic Source (tab Sources), tạo rule mới qua NewTrafficRuleModal với điều kiện match theo UTM (vd <code>utm_source=google</code>, <code>utm_medium=cpc</code> → gán tên source "Google Ads"), publish.</li><li><strong>Kết quả mong đợi:</strong> rule lưu qua draft API, xuất hiện trong TrafficRulesTable; trigger 1 pageview trên sim site <code>traffic-source/index.html</code> (kịch bản Google Ads hoặc custom UTM khớp) → quan sát network/Preview thấy <code>pageview.attribution.ts</code> = "Google Ads" đúng như rule đã định nghĩa.</li></ul>
+</article>
+<article class="tc" id="TS-02" data-p="Cao"><header><span class="id">TS-02</span><h3>Rule match theo referrer host/path</h3><span class="pri hi">Cao</span></header>
+<ul><li><strong>Bước:</strong> tạo rule match theo referrer (vd chứa "facebook.com"), publish; trigger pageview qua sim site với referrer giả lập tương ứng (kịch bản Facebook Ad có sẵn trong <code>traffic-source/index.html</code>).</li><li><strong>Kết quả mong đợi:</strong> <code>pageview.attribution.ts</code> khớp đúng tên source đã định nghĩa cho referrer đó.</li></ul>
+</article>
+<article class="tc" id="TS-03" data-p="Cao"><header><span class="id">TS-03</span><h3>Thứ tự ưu tiên: querystring match trước referrer</h3><span class="pri hi">Cao</span></header>
+<ul><li><strong>Bước:</strong> tạo 2 rule có thể cùng khớp 1 pageview (1 rule theo UTM, 1 rule theo referrer); trigger pageview có cả UTM lẫn referrer đều khớp.</li><li><strong>Kết quả mong đợi:</strong> rule querystring được áp dụng trước (first-match-wins: querystring rules đánh giá trước referrer rules) — <code>ts</code> = kết quả rule UTM, không phải rule referrer.</li></ul>
+</article>
+<article class="tc" id="TS-04" data-p="Trung bình"><header><span class="id">TS-04</span><h3>Click ID builtin (19 loại: gclid/fbclid/msclkid/ttclid…)</h3><span class="pri mid">Trung bình</span></header>
+<ul><li><strong>Bước:</strong> dùng sim site <code>click-ids/index.html</code> hoặc <code>traffic-source/index.html</code> để trigger pageview với từng click ID builtin.</li><li><strong>Kết quả mong đợi:</strong> mỗi click ID được map đúng vào source tương ứng theo bảng builtin (không cần tạo rule thủ công).</li><li><strong>Ghi chú:</strong> lặp lại cho từng loại click ID builtin còn lại.</li></ul>
+</article>
+<article class="tc" id="TS-05" data-p="Trung bình"><header><span class="id">TS-05</span><h3>Không match rule nào → cờ cần phân tích</h3><span class="pri mid">Trung bình</span></header>
+<ul><li><strong>Bước:</strong> trigger pageview với UTM/referrer không khớp bất kỳ rule nào đã cấu hình.</li><li><strong>Kết quả mong đợi:</strong> <code>ts</code> (source) vắng mặt/không xác định; event có flag <code>attribution._ts_needs_analysis = true</code> (quan sát qua network payload).</li></ul>
+</article>
+<article class="tc" id="TS-06" data-p="Cao"><header><span class="id">TS-06</span><h3>Sửa/xoá rule đã publish</h3><span class="pri hi">Cao</span></header>
+<ul><li><strong>Bước:</strong> sửa 1 rule đang active (đổi điều kiện match), publish lại; trigger pageview theo điều kiện cũ và điều kiện mới.</li><li><strong>Kết quả mong đợi:</strong> sau publish, chỉ điều kiện mới match đúng; điều kiện cũ không còn match (rơi vào rule khác hoặc unclassified).</li></ul>
+</article>
+<h4 class="sub" id="s26">E.2 Channel management</h4>
+<article class="tc" id="CH-01" data-p="Cao"><header><span class="id">CH-01</span><h3>Gán/sửa Channel cho 1 Traffic Source</h3><span class="pri hi">Cao</span></header>
+<ul><li><strong>Bước:</strong> vào tab Channels (ClassifyTrafficView), mở 1 source đã tạo (vd "Google Ads"), đổi Channel dropdown thành "Paid Search", lưu.</li><li><strong>Kết quả mong đợi:</strong> source hiển thị đúng channel mới gán trong danh sách/drag-list; lưu thành công qua draft API.</li></ul>
+</article>
+<article class="tc" id="CH-02" data-p="Trung bình"><header><span class="id">CH-02</span><h3>Bulk reassign nhiều source vào 1 channel qua drag-list</h3><span class="pri mid">Trung bình</span></header>
+<ul><li><strong>Bước:</strong> dùng panel Channels, kéo-thả nhiều source vào 1 channel khác.</li><li><strong>Kết quả mong đợi:</strong> tất cả source được gán lại đúng channel đã chọn, phản ánh ngay trên UI.</li></ul>
+</article>
+<h4 class="sub" id="s27">E.3 Classifications hub — Page/Form (LLM, edge stage 05/05b)</h4>
+<article class="tc" id="CLS-01" data-p="Trung bình"><header><span class="id">CLS-01</span><h3>Page Topic/Type tự động phân loại sau xử lý LLM (async)</h3><span class="pri mid">Trung bình</span></header>
+<ul><li><strong>Precondition:</strong> có pageview mới trên 1 trang nội dung rõ ràng (vd blog post trong sim site content-extraction).</li><li><strong>Bước:</strong> trigger pageview, đợi thời gian xử lý LLM (async), kiểm tra trong dashboard (Page Classification view/slideout override) xem page đã được gán Topic/Type chưa.</li><li><strong>Kết quả mong đợi:</strong> page nhận được nhãn Topic/Type hợp lý sau thời gian xử lý; nếu quá lâu không có kết quả, ghi nhận thời gian trễ thực tế.</li></ul>
+</article>
+<article class="tc" id="CLS-02" data-p="Trung bình"><header><span class="id">CLS-02</span><h3>Override phân loại theo từng record (Page/Form)</h3><span class="pri mid">Trung bình</span></header>
+<ul><li><strong>Bước:</strong> mở 1 page/form đã được classify, dùng slideout override để sửa thủ công Topic/Type hoặc Form Category.</li><li><strong>Kết quả mong đợi:</strong> override lưu thành công, ưu tiên hơn kết quả LLM tự động; hiển thị đúng nhãn đã override trong danh sách.</li></ul>
+</article>
+<article class="tc" id="CLS-03" data-p="Trung bình"><header><span class="id">CLS-03</span><h3>Quản lý vocab (Manage vocab modal) cho Page/Form classification</h3><span class="pri mid">Trung bình</span></header>
+<ul><li><strong>Bước:</strong> mở modal quản lý vocab (thêm/sửa/xoá 1 giá trị Topic/Type/Category), lưu; thử xoá 1 giá trị đang được dùng bởi 1 page/form.</li><li><strong>Kết quả mong đợi:</strong> vocab mới xuất hiện, có thể gán cho page/form; xoá 1 giá trị đang được dùng → có cảnh báo/chặn hợp lý (không âm thầm mất dữ liệu).</li></ul>
+</article>
+<h4 class="sub" id="s28">E.4 Custom Variable Rules (edge stage <code>06b-custom-properties.ts</code>)</h4>
+<article class="tc" id="CVR-01" data-p="Cao"><header><span class="id">CVR-01</span><h3>Tạo rule match condition ghi giá trị vào custom variable</h3><span class="pri hi">Cao</span></header>
+<ul><li><strong>Bước:</strong> tạo 1 custom variable mới (nếu chưa có), dùng CustomVarRuleEditor tạo 1 rule với điều kiện match (vd URL path chứa "/pricing" → gán giá trị cố định), publish.</li><li><strong>Kết quả mong đợi:</strong> rule lưu qua draft API, xuất hiện trong danh sách; trigger pageview trên URL khớp điều kiện qua sim site → network payload có <code>event.cprop</code> chứa đúng giá trị đã cấu hình cho variable đó.</li></ul>
+</article>
+<article class="tc" id="CVR-02" data-p="Trung bình"><header><span class="id">CVR-02</span><h3>Rule dạng lookup table (nhiều điều kiện → nhiều output)</h3><span class="pri mid">Trung bình</span></header>
+<ul><li><strong>Bước:</strong> tạo 1 lookup table (condition columns → output columns) qua CustomVarLookupAdapter, gán vào 1 custom variable rule, thêm vài dòng mapping, publish.</li><li><strong>Kết quả mong đợi:</strong> trigger event khớp 1 hàng trong lookup table → <code>event.cprop</code> nhận đúng giá trị output tương ứng hàng đó; hàng không khớp → không set giá trị (hoặc dùng default nếu có).</li></ul>
+</article>
+<article class="tc" id="CVR-03" data-p="Cao"><header><span class="id">CVR-03</span><h3>Priority/first-write-wins khi nhiều rule cùng khớp</h3><span class="pri hi">Cao</span></header>
+<ul><li><strong>Bước:</strong> tạo 2 rule cùng ghi vào 1 custom variable nhưng điều kiện khác nhau, cả 2 đều khớp 1 event, đặt priority khác nhau.</li><li><strong>Kết quả mong đợi:</strong> chỉ rule có priority cao hơn (theo thứ tự evaluate trước) ghi giá trị vào <code>event.cprop</code>; rule còn lại không ghi đè (first-write-wins).</li></ul>
+</article>
+<article class="tc" id="CVR-04" data-p="Trung bình"><header><span class="id">CVR-04</span><h3>Sửa/xoá rule đã publish, kiểm tra cross-dependency</h3><span class="pri mid">Trung bình</span></header>
+<ul><li><strong>Bước:</strong> sửa điều kiện 1 rule đang active, publish lại; thử xoá 1 custom variable đang có rule tham chiếu.</li><li><strong>Kết quả mong đợi:</strong> sau publish, điều kiện mới có hiệu lực đúng; xoá variable đang có rule dùng phải cảnh báo/chặn hoặc xử lý cross-dependency rõ ràng, không âm thầm để rule mồ côi.</li></ul>
+<p><strong>Ghi chú Phần E:</strong> TS/CH/CLS/CVR đều dùng chung mô hình draft/publish với Triggers/Conversions — publish xong mới có hiệu lực trên event thật, nên mỗi testcase cần đợi publish thành công trước khi trigger event kiểm tra. Đã loại CH-03 và CLS-04 (⚠️).</p>
+</article>
+</section>
+<section><h2 id="s29">Phần F — Playground Environment</h2>
+<div class="note">Nguồn: research trực tiếp <code>services/frontend/src/components/layout/Sidebar.tsx</code>, <code>Shell.tsx</code>, <code>packages/schemas/src/location/scope.ts</code>, <code>packages/schemas/src/edge/enriched.ts</code>, <code>packages/schemas/src/warehouse/</code>. 10 testcase cho Playground — workspace thứ 2 song song Production, dùng để test connection/tracking/rule/Axle AI mà không đụng dữ liệu thật. Gated theo plan Growth+.<br><strong>Cách thao tác:</strong> browser + dashboard + sim site — chuyển workspace qua switcher ở sidebar, nhúng snippet Playground vào sim site, quan sát báo cáo/network. Không cần API/DB trực tiếp.</div>
+<article class="tc" id="PG-01" data-p="Cao"><header><span class="id">PG-01</span><h3>Chuyển đổi Production ↔ Playground qua workspace switcher</h3><span class="pri hi">Cao</span></header>
+<ul><li><strong>Precondition:</strong> account plan Growth trở lên.</li><li><strong>Bước:</strong> ở sidebar, dùng segmented control Production/Playground, chuyển sang Playground.</li><li><strong>Kết quả mong đợi:</strong> URL đổi sang <code>/:account_id/playground/...</code>; banner "You're in the Playground workspace…" xuất hiện xuyên suốt app; chuyển lại Production thì banner biến mất, URL trở về <code>/:account_id/production/...</code>.</li></ul>
+</article>
+<article class="tc" id="PG-02" data-p="Trung bình"><header><span class="id">PG-02</span><h3>Banner Playground hiển thị nhất quán trên mọi trang</h3><span class="pri mid">Trung bình</span></header>
+<ul><li><strong>Bước:</strong> khi đang ở Playground, điều hướng qua nhiều trang khác nhau trong dashboard (Data Rules, Actions, Settings...).</li><li><strong>Kết quả mong đợi:</strong> banner Playground luôn hiển thị, không biến mất khi chuyển trang, không nhầm lẫn với Production.</li></ul>
+</article>
+<article class="tc" id="PG-03" data-p="Cao"><header><span class="id">PG-03</span><h3>Tracking snippet khác nhau giữa 2 workspace</h3><span class="pri hi">Cao</span></header>
+<ul><li><strong>Bước:</strong> lấy tracking snippet khi đang ở Production, ghi lại; chuyển sang Playground, lấy lại snippet.</li><li><strong>Kết quả mong đợi:</strong> snippet Playground có thêm <code>&amp;ws=playground</code> trong URL; snippet Production không có param này.</li></ul>
+</article>
+<article class="tc" id="PG-04" data-p="Cao"><header><span class="id">PG-04</span><h3>Dữ liệu tracking từ Playground không lẫn vào báo cáo Production</h3><span class="pri hi">Cao</span></header>
+<ul><li><strong>Bước:</strong> nhúng snippet Playground vào 1 sim site, tạo vài event thật; sau đó xem báo cáo/dashboard ở chế độ Production và chế độ Playground.</li><li><strong>Kết quả mong đợi:</strong> event chỉ xuất hiện khi xem ở chế độ Playground, KHÔNG xuất hiện trong báo cáo Production (đúng theo field <code>ws</code> trên event enriched).</li></ul>
+</article>
+<article class="tc" id="PG-05" data-p="Cao"><header><span class="id">PG-05</span><h3>Rule/Trigger tạo ở Playground không ảnh hưởng Production</h3><span class="pri hi">Cao</span></header>
+<ul><li><strong>Bước:</strong> ở Playground, tạo/sửa 1 trigger hoặc data rule; chuyển sang Production kiểm tra danh sách trigger/rule.</li><li><strong>Kết quả mong đợi:</strong> thay đổi chỉ tồn tại trong Playground, Production không bị ảnh hưởng (không thấy trigger mới, không mất trigger cũ).</li></ul>
+</article>
+<article class="tc" id="PG-06" data-p="Trung bình"><header><span class="id">PG-06</span><h3>Axle AI nhận biết đúng workspace đang thao tác</h3><span class="pri mid">Trung bình</span></header>
+<ul><li><strong>Bước:</strong> ở Playground, yêu cầu Axle "mở trigger playground" hoặc thao tác tạo/sửa 1 trigger qua chat.</li><li><strong>Kết quả mong đợi:</strong> Axle thao tác đúng trên trigger thuộc Playground workspace, không lẫn sang Production.</li></ul>
+</article>
+<article class="tc" id="PG-07" data-p="Cao"><header><span class="id">PG-07</span><h3>Data Warehouse access cấp riêng theo từng workspace (Production/Playground)</h3><span class="pri hi">Cao</span></header>
+<ul><li><strong>Bước:</strong> Settings → Users &amp; Permissions → Data Warehouse; cấp quyền cho 1 user chỉ ở Playground (không cấp Production), và ngược lại.</li><li><strong>Kết quả mong đợi:</strong> quyền cấp đúng riêng biệt theo workspace; user chỉ có quyền Playground không truy cập được dataset Production và ngược lại (theo label <code>playground</code>/<code>production</code> trong UI cấp quyền).</li></ul>
+</article>
+<article class="tc" id="PG-08" data-p="Cao"><header><span class="id">PG-08</span><h3>Gating theo plan: account dưới Growth thấy upsell khi bấm Playground</h3><span class="pri hi">Cao</span></header>
+<ul><li><strong>Precondition:</strong> account ở plan thấp hơn Growth.</li><li><strong>Bước:</strong> bấm vào segment Playground trên switcher.</li><li><strong>Kết quả mong đợi:</strong> hiện modal upsell "Playground requires an upgrade", KHÔNG chuyển được sang Playground; segment Playground vẫn hiển thị trên switcher (không ẩn) nhưng bị chặn khi click.</li></ul>
+</article>
+<article class="tc" id="PG-09" data-p="Trung bình"><header><span class="id">PG-09</span><h3>Playground không tính vào quota đếm số lượng nhưng vẫn dùng chung Intelligence Credits/visitor pool</h3><span class="pri mid">Trung bình</span></header>
+<ul><li><strong>Bước:</strong> ở Plans/Usage view, so sánh việc tạo entity (trigger/rule...) ở Playground có tính vào quota đếm số lượng của Production không; thực hiện 1 hành động AI (Axle) ở Playground và kiểm tra Intelligence Credits có bị trừ không.</li><li><strong>Kết quả mong đợi:</strong> entity count ở Playground KHÔNG cộng dồn vào giới hạn đếm của Production (uncapped/miễn phí cho count-based); nhưng Intelligence Credits và visitor-consumption pool là dùng chung 1 pool với Production — hành động AI ở Playground vẫn trừ vào pool chung.</li></ul>
+</article>
+<article class="tc" id="PG-10" data-p="Thấp"><header><span class="id">PG-10</span><h3>Chuyển workspace giữ đúng ngữ cảnh trang đang xem</h3><span class="pri lo">Thấp</span></header>
+<ul><li><strong>Bước:</strong> đang ở 1 trang cụ thể (vd Triggers) tại Production, chuyển sang Playground.</li><li><strong>Kết quả mong đợi:</strong> ghi nhận hành vi thực tế (ở lại đúng trang tương ứng bên Playground, hay quay về trang mặc định) — không có kỳ vọng cứng nếu chưa có spec rõ, nhưng không được lỗi/trắng trang khi chuyển.</li></ul>
+<p><strong>Ghi chú Phần F:</strong> PG-08 cần ít nhất 1 account test ở plan dưới Growth để kiểm tra gating — nếu không có sẵn, cần tạo/hạ plan account test trước khi chạy. PG-04/PG-05 nên chạy cặp đôi (tạo ở 1 bên, xác nhận ở bên kia) để phát hiện rò rỉ dữ liệu giữa 2 workspace — đây là loại lỗi nghiêm trọng nếu xảy ra.</p>
+</article>
+</section>
+<section><h2 id="s30">Phần G — Draft &amp; Publish</h2>
+<div class="note">Nguồn: research trực tiếp <code>services/frontend/src/lib/settings/SettingsPublishModal.tsx</code>, <code>SettingsDraftProvider.tsx</code>, <code>SettingsConflictDialogs.tsx</code>, <code>SettingsVersionsPanel.tsx</code>, <code>services/platform/settings/CLAUDE.md</code>, <code>services/collect/edge/settings-projector/</code>. 11 testcase cho cơ chế draft→publish DÙNG CHUNG cho mọi entity (Triggers, Conversions, Custom Variable Rules, Traffic Source Rules...) — khác với testcase từng loại rule cụ thể đã có ở Phần E, nhóm này test bản thân hạ tầng publish: draft state, version history, rollback, conflict giữa nhiều người sửa, validation, và giới hạn về chỉ báo propagation.<br><strong>Cách thao tác:</strong> browser + dashboard, một số testcase (PUB-07/08/10) cần 2 tab/2 tester cùng lúc trên cùng 1 account.<br><strong>Kiến trúc tóm tắt:</strong> 1 file settings/account/workspace (draft.json/published.json trên R2 + D1). Publish là <strong>atomic trên toàn bộ draft</strong> — không có publish theo từng entity riêng lẻ. Draft có 3 tier: pending (chỉ trong bộ nhớ trình duyệt, mất khi reload nếu chưa "Save to Draft") → draft (lưu backend, dùng chung giữa các tab/user) → published.</div>
+<article class="tc" id="PUB-01" data-p="Cao"><header><span class="id">PUB-01</span><h3>Sửa nhiều entity, thấy đúng số lượng pending changes</h3><span class="pri hi">Cao</span></header>
+<ul><li><strong>Bước:</strong> sửa 2-3 entity khác loại (vd 1 trigger, 1 custom variable), quan sát bottom bar/draft bar.</li><li><strong>Kết quả mong đợi:</strong> hiển thị đúng số lượng "N unpublished changes" khớp số thao tác đã làm.</li></ul>
+</article>
+<article class="tc" id="PUB-02" data-p="Cao"><header><span class="id">PUB-02</span><h3>Publish gộp nhiều loại entity trong 1 lần, atomic</h3><span class="pri hi">Cao</span></header>
+<ul><li><strong>Bước:</strong> sửa 1 Trigger VÀ 1 Custom Variable Rule trong cùng phiên draft, bấm Publish 1 lần duy nhất (qua SettingsPublishModal), xác nhận change summary rồi publish.</li><li><strong>Kết quả mong đợi:</strong> cả 2 thay đổi xuất hiện cùng trong 1 version mới của Version History (không tách thành 2 publish riêng); draft bar về 0 sau publish.</li></ul>
+</article>
+<article class="tc" id="PUB-03" data-p="Cao"><header><span class="id">PUB-03</span><h3>Pending edits (tier-2, chưa "Save to Draft") không được publish</h3><span class="pri hi">Cao</span></header>
+<ul><li><strong>Bước:</strong> sửa 1 field nhưng KHÔNG bấm "Save to Draft", mở Publish modal.</li><li><strong>Kết quả mong đợi:</strong> modal cảnh báo có pending edits chưa lưu sẽ không được publish; sau khi publish, thay đổi chưa lưu đó không xuất hiện trong version mới (và reload trang sẽ mất luôn nếu chưa lưu).</li></ul>
+</article>
+<article class="tc" id="PUB-04" data-p="Cao"><header><span class="id">PUB-04</span><h3>Discard/Abandon draft</h3><span class="pri hi">Cao</span></header>
+<ul><li><strong>Bước:</strong> sửa vài entity, lưu vào draft, sau đó vào Version History panel bấm "Abandon draft".</li><li><strong>Kết quả mong đợi:</strong> draft bị xoá, quay về trạng thái khớp bản published gần nhất, không còn pending changes.</li></ul>
+</article>
+<article class="tc" id="PUB-05" data-p="Trung bình"><header><span class="id">PUB-05</span><h3>Version History liệt kê đúng, tải xuống 1 version</h3><span class="pri mid">Trung bình</span></header>
+<ul><li><strong>Bước:</strong> sau khi publish vài lần, mở SettingsVersionsPanel, xem danh sách version (tối đa 50), bấm download 1 version.</li><li><strong>Kết quả mong đợi:</strong> danh sách đúng thứ tự thời gian, change summary hiển thị đúng; file tải xuống chứa đúng nội dung version đó.</li></ul>
+</article>
+<article class="tc" id="PUB-06" data-p="Cao"><header><span class="id">PUB-06</span><h3>Revert về version cũ KHÔNG live ngay, cần Publish lại</h3><span class="pri hi">Cao</span></header>
+<ul><li><strong>Bước:</strong> chọn 1 version cũ trong Version History, bấm Revert; KHÔNG bấm Publish; kiểm tra dashboard đang hiển thị gì (draft hay published).</li><li><strong>Kết quả mong đợi:</strong> Revert chỉ tạo ra 1 draft mới seed từ version cũ đó — bản published vẫn giữ nguyên (chưa đổi) cho tới khi tester bấm Publish lần nữa. <strong>Đây là nhầm lẫn phổ biến</strong> — nếu tester thấy "Revert" tự động live ngay mà không cần publish thêm, đó là thay đổi hành vi cần báo dev.</li></ul>
+</article>
+<article class="tc" id="PUB-07" data-p="Cao"><header><span class="id">PUB-07</span><h3>Conflict: người khác đã lưu draft mới hơn (DraftConflictDialog)</h3><span class="pri hi">Cao</span></header>
+<ul><li><strong>Precondition:</strong> 2 tester/2 tab cùng 1 account.</li><li><strong>Bước:</strong> Tester A sửa và Save to Draft; Tester B (đang có draft cũ hơn trong session) cũng thử Save to Draft.</li><li><strong>Kết quả mong đợi:</strong> Tester B nhận DraftConflictDialog, chỉ có tuỳ chọn "Refresh" (không cho merge/ghi đè); sau Refresh, Tester B thấy đúng draft mới nhất của Tester A.</li></ul>
+</article>
+<article class="tc" id="PUB-08" data-p="Cao"><header><span class="id">PUB-08</span><h3>Conflict: bản published đã đổi trong lúc đang soạn draft (PublishConflictModal)</h3><span class="pri hi">Cao</span></header>
+<ul><li><strong>Precondition:</strong> 2 tester/2 tab.</li><li><strong>Bước:</strong> Tester A publish thành công; Tester B đang có draft riêng (dựa trên published cũ) thử publish.</li><li><strong>Kết quả mong đợi:</strong> Tester B nhận PublishConflictModal với 2 lựa chọn "Rebase onto latest" và "Discard draft &amp; start over"; chọn Rebase → thao tác của B được replay lên trên bản published mới nhất của A (không mất draft của B, không ghi đè thay đổi của A).</li></ul>
+</article>
+<article class="tc" id="PUB-09" data-p="Trung bình"><header><span class="id">PUB-09</span><h3>Banner "stale base" khi bản published đã vượt qua draft đang soạn</h3><span class="pri mid">Trung bình</span></header>
+<ul><li><strong>Bước:</strong> (tương tự PUB-08) khi published đã tiến xa hơn anchor của draft đang mở nhưng chưa thao tác publish/refresh.</li><li><strong>Kết quả mong đợi:</strong> banner cảnh báo "stale base" xuất hiện, không cần đợi tới lúc publish mới biết có xung đột.</li></ul>
+</article>
+<article class="tc" id="PUB-10" data-p="Trung bình"><header><span class="id">PUB-10</span><h3>Đồng bộ realtime giữa 2 tab cùng 1 user (BroadcastChannel)</h3><span class="pri mid">Trung bình</span></header>
+<ul><li><strong>Bước:</strong> mở cùng 1 account trên 2 tab của cùng trình duyệt, sửa 1 entity ở tab 1 và Save to Draft.</li><li><strong>Kết quả mong đợi:</strong> tab 2 nhận cập nhật draft mới (qua BroadcastChannel) mà không cần reload thủ công.</li></ul>
+</article>
+<article class="tc" id="PUB-11" data-p="Trung bình"><header><span class="id">PUB-11</span><h3>Publish thất bại do draft không hợp lệ (validation)</h3><span class="pri mid">Trung bình</span></header>
+<ul><li><strong>Bước:</strong> tạo 1 draft có dữ liệu không hợp lệ (vd trigger thiếu điều kiện bắt buộc), thử publish.</li><li><strong>Kết quả mong đợi:</strong> publish bị chặn, hiện lỗi rõ ràng (inline trong modal), không tạo version mới; dữ liệu draft không hợp lệ vẫn giữ nguyên để sửa lại.</li></ul>
+</article>
+<h4 class="sub" id="s31">Ghi chú tổng hợp</h4>
+<ul><li>Tổng <strong>112 testcase</strong>: 33 Frontend (A) + 28 SDK (B) + 15 Preview (C) + 15 Rule Engines (E) + 10 Playground (F) + 11 Draft &amp; Publish (G).</li><li>Tất cả testcase chỉ thao tác qua browser + dashboard/sim site, không API/DB backend trực tiếp.</li><li>Bản đầy đủ (gồm mục dở dang + BigQuery): <code>docs/TEST_CASES.md</code>.</li></ul>
+</section></main><script>
+const q=document.getElementById('q'),bs=[...document.querySelectorAll('.bar button')];let pf='';
+function f(){const t=q.value.toLowerCase();document.querySelectorAll('.tc').forEach(c=>{c.classList.toggle('hide',!((!pf||c.dataset.p===pf)&&c.textContent.toLowerCase().includes(t)))})}
+q.oninput=f;bs.forEach(b=>b.onclick=()=>{pf=b.dataset.p;bs.forEach(x=>x.classList.toggle('on',x===b));f()});
+</script></body></html>
